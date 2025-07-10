@@ -1,0 +1,7 @@
+services:
+  mydevcont:
+    build: "."
+    volumes:
+      - ../../../:/Cmnt
+    ports:
+      - "80:80"

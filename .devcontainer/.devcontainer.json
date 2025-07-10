@@ -1,0 +1,17 @@
+{
+  "name": "mydevcont",
+//  "workspace" : "/scalacliTry4",
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "mydevcont",
+  "workspace": "/Cmnt/se/prj/scalacliTry5",
+//  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry5,type=bind,consistency=cached",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [],
+  "customizations": {
+    "jetbrains" : {"backend": "IntelliJ"}
+  },
+  "remoteUser": "root"
+//  "postStartCommand": "mkdir -p /scalacliTry5/.idea && chmod -R u+w /scalacliTry5/.idea"
+}
