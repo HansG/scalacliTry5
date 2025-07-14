@@ -1,10 +1,8 @@
 {
   "name": "mydevcont",
-//  "workspace" : "/scalacliTry4",
-  "dockerComposeFile": "../docker-compose.yaml",
-  "service": "mydevcont",
-  "workspace": "/Cmnt/se/prj/scalacliTry5",
-//  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry5,type=bind,consistency=cached",
+  "build": { "dockerfile": "Dockerfile" },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
+  "workspaceFolder": "/scalacliTry",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },

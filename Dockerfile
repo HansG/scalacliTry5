@@ -1,6 +1,7 @@
 # Start mit Eclipse Temurin JDK 18 auf Ubuntu 22.04 (Jammy, glibc ≥ 2.35 !!!! für scala)
 FROM eclipse-temurin:18-jdk-jammy
 
+VOLUME /scalacliTry
 # System-Tools installieren und aufräumen
 RUN apt-get update \
  && apt-get install -y \
@@ -16,4 +17,6 @@ RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x8
 
 ENV PATH=/root/.local/share/coursier/bin:${PATH}
 
-#WORKDIR /Cmnt/se/prj/scalacliTry4
+USER root
+
+WORKDIR /scalacliTry
