@@ -3,13 +3,15 @@
   "build": { "dockerfile": "Dockerfile" },
   "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
   "workspaceFolder": "/scalacliTry",
-  "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash"
-  },
-  "extensions": [],
   "customizations": {
-    "jetbrains" : {"backend": "IntelliJ"}
+    "jetbrains": {
+      "backend": "IntelliJ",
+      "plugins": [
+        "org.intellij.scala"
+      ]
+    }
   },
-  "remoteUser": "root"
+  "remoteUser": "root",
+  "postCreateCommand": "scala-cli setup-ide ."
 //  "postStartCommand": "mkdir -p /scalacliTry5/.idea && chmod -R u+w /scalacliTry5/.idea"
 }
