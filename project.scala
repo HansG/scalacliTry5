@@ -1,5 +1,5 @@
 //> using scala "3.7.1"
-//> using repositories += "maven-central" at "https://repo1.maven.org/maven2"
+//> using repository "https://repo1.maven.org/maven2"
 //> using dep "com.github.scopt::scopt::4.1.0"
 //> using dep "com.lihaoyi::os-lib:0.11.4"
 //> using dep "org.scalatest::scalatest:3.2.19"

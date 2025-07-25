@@ -8,7 +8,9 @@ RUN apt-get update \
       curl \
       gzip \
       bash \
- && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y --no-install-recommends git \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 
 RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && \
