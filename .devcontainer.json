@@ -1,8 +1,10 @@
 {
   "name": "mydevcont",
-  "build": { "dockerfile": "Dockerfile" },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
-  "workspaceFolder": "/scalacliTry",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  },//  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
+//  "workspaceFolder": "/scalacliTry",
   "customizations": {
     "jetbrains": {
       "backend": "IntelliJ",
