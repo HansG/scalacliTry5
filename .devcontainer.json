@@ -3,8 +3,13 @@
   "build": {
     "context": ".",
     "dockerfile": "Dockerfile"
-  },//  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
-//  "workspaceFolder": "/scalacliTry",
+  },
+//  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry,type=bind,consistency=cached",
+  //  "workspaceFolder": "/scalacliTry",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/scalacliTry,type=bind",
+    "source=C:\\Users\\GailH\\.coursier\\cache\\v1,target=/dotcoursier,type=bind"
+  ],
   "customizations": {
     "jetbrains": {
       "backend": "IntelliJ",
@@ -15,5 +20,5 @@
   },
   "remoteUser": "root",
   "postCreateCommand": "scala-cli setup-ide ."
-//  "postStartCommand": "mkdir -p /scalacliTry5/.idea && chmod -R u+w /scalacliTry5/.idea"
+  //  "postStartCommand": "mkdir -p /scalacliTry5/.idea && chmod -R u+w /scalacliTry5/.idea"
 }
