@@ -2,7 +2,7 @@
 FROM eclipse-temurin:18-jdk-jammy
 
 VOLUME /scalacliTry
-# System-Tools installieren und aufräumen
+# System-Tools installieren und aufräumen  Xvom devContX
 RUN apt-get update \
  && apt-get install -y \
       curl \
