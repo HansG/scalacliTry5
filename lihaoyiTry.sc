@@ -1,6 +1,6 @@
 //> using scala "3.7.1"
 //> using dep "com.github.scopt::scopt::4.1.0"
-//> using dep "com.lihaoyi::os-lib:0.11.4"
+//> using dep "com.lihaoyi::os-lib:0.11.5"
 
 // Make sure working directory exists and is empty
 val wd = os.pwd/"out/splash"
@@ -23,4 +23,4 @@ invoked.out.trim() //==> "hellohello"
 val curl = os.proc("curl", "-L" , "https://git.io/fpvpS").spawn(stderr = os.Inherit)
 val gzip = os.proc("gzip", "-n").spawn(stdin = curl.stdout)
 val sha = os.proc("shasum", "-a", "256").spawn(stdin = gzip.stdout)
-sha.stdout.trim() //==> "acc142175fa520a1cb2be5b97cbbe9bea092e8bba3fe2e95afa645615908229e  -"
+println(sha.stdout.trim()) //==> "acc142175fa520a1cb2be5b97cbbe9bea092e8bba3fe2e95afa645615908229e  -"

@@ -2,7 +2,7 @@
 FROM eclipse-temurin:18-jdk-jammy
 # oder FROM mcr.microsoft.com/devcontainers/base:ubuntu + apt-get .. openjdk-17-jdk
 VOLUME /scalacliTry
-# System-Tools installieren und aufräumen
+# System-Tools installieren und aufräumen  Xvom devContX
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
       curl \

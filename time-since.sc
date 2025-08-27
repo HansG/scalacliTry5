@@ -26,7 +26,7 @@ given Read[LocalDateTime] with
             .map(_.atStartOfDay))
          .getOrElse(
             throw new IllegalArgumentException(
-               s"Not a valid timestamp, correct format is `yyyy-mm-dd` OR `yyyy-mm-ddTHH:MM:SS`."
+               "Not a valid timestamp, correct format is `yyyy-mm-dd` OR `yyyy-mm-ddTHH:MM:SS`."
             ))
 
 given Read[ZoneId] with
