@@ -1,6 +1,6 @@
 //> using scala "3.7.1"
 //> using dep "com.github.scopt::scopt::4.1.0"
-//> using dep "com.lihaoyi::os-lib:0.11.4"
+//> using dep "com.lihaoyi::os-lib:0.11.5"
 
 // Make sure working directory exists and is empty
 val wd = os.pwd/"out/splash"
