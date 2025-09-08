@@ -1,11 +1,14 @@
+/*
 #!/usr/bin/env -S scala-cli shebang -q
+*/
 
 //> using scala "3.7.1"
 //> using dep "com.github.scopt::scopt::4.1.0"
 
 import scopt.{OParser, Read}
+
+import java.time.*
 import java.time.format.DateTimeFormatter
-import java.time._
 import java.util.concurrent.TimeUnit
 import scala.util.Try
 

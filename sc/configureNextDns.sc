@@ -1,4 +1,6 @@
-#!/usr/bin/env -S scala-cli shebang -q
+/* 
+#!/usr/bin/env -S scala-cli shebang -q 
+*/
 
 //> using scala "3.7.1"
 //> using toolkit default
@@ -8,6 +10,7 @@ import cats.syntax.all.given
 import com.monovore.decline.*
 import sttp.client4.quick.*
 import upickle.default.*
+
 import java.net.InetAddress
 
 val domainsToCleanUp = List(

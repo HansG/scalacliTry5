@@ -3,5 +3,5 @@
 //> using dep "com.github.scopt::scopt::4.1.0"
 //> using dep "com.lihaoyi::os-lib:0.11.5"
 //> using dep "org.scalatest::scalatest:3.2.19"
-//> using toolkit default
+//> using toolkit "0.7.0"
 //> using dep "com.monovore::decline:2.5.0"
