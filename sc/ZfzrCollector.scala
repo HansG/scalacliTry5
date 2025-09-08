@@ -9,13 +9,13 @@
 package sc
 
 
-import java.nio.file.Path
-import java.util
+import os._
+
 import scala.util.matching.Regex
+import scala.collection.mutable.Set as MSet
 
 val srcbase = Path(s"C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/vers8_0")
 
-//@main def doCollectNamespaces = CollectNamespaces(srcbase)
 
 
 
@@ -38,7 +38,7 @@ object CollectNamespaces extends App:
          }
       set
 
-   def eval(set: MSet[NP]): util.Map[String, MSet[String]] =
+   def eval(set: MSet[NP]): Map[String, MSet[String]] =
       set
          .groupBy(_._2)
          .filter((_, pairs) => pairs.size > 1)

@@ -4,12 +4,13 @@
 
 //> using file ZfzrExtensionMapper.scala
 //> using file ZfzrReplacer.scala
+//> using file ZfzrCollector.scala
 //> using scala "3.7.1"
 //> using toolkit "0.7.0"
 //> using dep "com.lihaoyi::os-lib:0.11.5"
 
 import os.*
-import sc.SetActionReplace
+import sc.{CollectNamespaces, SetActionReplace}
 
 // Version (aktualisieren falls nötig)
 val vers = "vers8_0"
@@ -39,5 +40,7 @@ def tryit = MergeExtensionMapper(
    Path(s"C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/$vers/zfzr/update/ExtensionMapperB.java")
                   )
 
-@main def setActionReplaceZfzr = SetActionReplace(Path(zfzrJavahead))
+//@main 
+def setActionReplaceZfzr = SetActionReplace(Path(zfzrJavahead))
 
+@main def doCollectNamespaces = CollectNamespaces(srcbase)
