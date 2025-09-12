@@ -1,5 +1,6 @@
 /* 
-#!/usr/bin/env -S scala-cli shebang -q 
+#!/usr/bin/env -S scala-cli shebang -q
+chmod +x ...sc
 */
 
 //> using scala "3.7.1"
