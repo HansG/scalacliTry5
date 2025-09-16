@@ -1,0 +1,475 @@
+package sc
+
+import os.*
+
+import java.util.stream
+import scala.util.matching.Regex
+
+class ZfzrTools1 {
+
+  lazy val vers = "vers8_0" //Aktualisieren!!
+  //mit/ohne trunk???
+  //  val javaheadGen = """C:/se/intj/Projekte/obj743vkhilf/vktuevnordfsw-gen/src/main/javahead/de/tuevnordfsw/vers3_7_1/verkehr/gen""" ///ZfzrAntwortServiceStub.java
+  val zfzrJavahead = """C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/""" + vers + """/verkehr/mserver/gen""" ///ZfzrAntwortServiceStub.java
+  // val javaheadGen = """C:/se/intj/Projekte/obj743vkhilf/vkgtuek-gen/src/main/javahead/de/xgta/""" + vers + """/verkehr/gen""" ///ZfzrAntwortServiceStub.java
+  val zevisWsgen = s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/src/de/zevis/$vers/mserver/gen""" ///$zfzrVers/  ZevisZwServiceStub.java
+  val zevisJavahead = s"""C:/se/intj/Projekte/obj743vkhilf/VkZevisKonnektor-Gen/src/main/javahead/de/zevis/$vers/mserver/gen""" ///$zfzrVers/  ZevisZwServiceStub.java
+  val bqrJavahead = """C:\se\intj\Projekte\obj743vkhilf\vkbqrk-gen\src\main\javahead\de\bqr\vers2_28_1\verkehr\gen""" ///$zfzrVers/  ZevisZwServiceStub.java
+  //      val file = """C:/se/intj/Projekte/obj743vkhilf/vkstk-gen/trunk/src/main/javahead/de/steuerk/vers4_0/mserver/gen"""
+  val tuevrhJavagen = """D:  /se  /projekte/obj743vkhilf/VkTuevRhLandKonnektor-Gen/trunk/src/main/java/de/akdb/ok/verkehr/tuevrhlnd/common/stub"""
+  val gendir = Path(zevisWsgen) //tuevrhJavagen  zevisWsgen javaheadGen
+
+  //\\tsclient\D/se....???
+  def emapper = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/$vers/zfzr/update/ExtensionMapper.java""")
+
+  def emapperB = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/$vers/zfzr/update/ExtensionMapperB.java""")
+
+  def emapper01 = Path("""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/srcz/de/kba/www/zfzr/update/ExtensionMapper.java""")
+
+  def emapper1 = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/src/de/kba/$vers/zfzr/update/ExtensionMapper.java""") //$zfzrVers/
+
+  def emapper11 = Path("""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/src/de/kba/www/zfzr/update/ExtensionMapper.java""") //$zfzrVers/
+
+  val emappert = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/$vers/zfzr/update/ExtensionMapperMerged.java""") //$zfzrVers/
+  val emappert1 = Path("""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/src/ExtensionMapper.java""") //$zfzrVers/
+  //   val emappert = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/src/ExtensionMapperMerged.java""") //$zfzrVers/
+
+  def srcbase = Path("""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/""" + vers) //+ """/evb/uebermittlung"""
+
+  val xgtaVers = "vers5_4"
+  val gtueGensrc = """C:/se/intj/Projekte/obj743vkhilf/VkGtueKonnektor-Gen/trunk/src/main/javahead"""
+  val gtueQNameExample = """C:/se/intj/Projekte/obj743vkhilf/VkGtueKonnektor-Gen/trunk/src/main/javahead/de/gtue/vers4_1/schemata/xkfz/_4_1/TypeQuittungskopf.java"""
+  val gtueGensrc1 = """C:/se/intj/Projekte/obj743vkhilf/VkGtueKonnektor-Gen/trunk/src/main/javahead/de/gtue/vers4_1/code/_1_0"""
+
+  val fswtm = """D:/temp/del/dela1.txt"""
+
+  val touchPath = Path("""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/vers4_6/schemata/xkfz/_5""")
+
+/*
+  @Test def gtueQNameReplacer = GtueQNameReplacer(gtueGensrc)
+
+  // @Test def GtueQNameReplacer2.bearbeite(Path("""C:/se/intj/Projekte/obj743vkhilf/vkgtuek-gen/src/main/javahead/de/gtue/vers4_1/elemente/Leistungsgewicht_type1.java"""))
+  @Test def setActionReplaceZfzr = SetActionReplace(Path(zfzrJavahead)) //gendir zevisWsgen1 javaheadGen XXX
+
+  @Test def setActionReplaceBqr = SetActionReplace(Path(bqrJavahead)) //gendir zevisWsgen1 javaheadGen
+
+  @Test def setActionReplaceZevis = SetActionReplace(Path(zevisJavahead)) //gendir zevisWsgen1 javaheadGen
+
+  @Test def setActionReplaceCoc = SetActionReplace(Path("""C:\se\intj\Projekte\obj743vkhilf\vkcock-gen\src\main\javahead\de\coc\vers1_9\verkehr\gen""")) //gendir zevisWsgen1 javaheadGen
+
+  @Test def regex2J = Regex2J("vers4_6del")
+
+  @Test def mergeExtensionMapper = MergeExtensionMapper(emappert, emapper, emapper11)
+
+  @Test def mergeExtensionMapperB = MergeExtensionMapper(emappert, emapper, emapperB)
+
+  @Test def mergeExtensionMapper0 = MergeExtensionMapper(emappert, """C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/vers7_2/zfzr/update/ExtensionMapper.java""",
+    """C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/ws-gen/srcMerge/de/kba/www/zfzr/update/ExtensionMapper.java""")
+
+  @Test def mergeExtensionMapperEvb = MergeExtensionMapper(emappert, """C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/src/main/javahead/de/kba/vers8_0/zfzr/update/ExtensionMapper.java""",
+    """C:\se\intj\Projekte\obj743vkhilf\ZfzrKonnektor\ws-gen\srcevb\src\de\kba\vers8_0\evb\ExtensionMapper.java""")
+
+  @Test def mergeExtensionMapper01 = MergeExtensionMapper(emappert, emapper01, emapper11)
+
+  @Test def collectNamespaces = CollectNamespaces(srcbase)
+
+  @Test def renameFiles = RenameFiles(Path("""C:/se/intj/Projekte/obj743vk/01-Technik/03-Fremdsystemschnittstellen/VkCocKonnektor"""))
+
+//  @Test def class2PropPairs = Class2PropPairs(fswtm)
+
+  @Test def touchFiles = TouchFiles(touchPath)
+*/
+
+  /*
+     Suchen/Ersetzen in eclipse mit reular expression:
+     (?:de\.kba\.www|de\.xoev\.www|de\.xoev\.schemata|de\.zivit\.www|com\.evb_online\.www)   -> de.kba.vers5_3
+  *
+    throw new java.lang.RuntimeException();   throw new java.lang.RuntimeException("Ungueltiger Wert: "+param + " |\n");
+  *
+"org.apache.axis2.databinding.utils.ConverterUtil" -> "de.kba.vers5_3.verkehr.mserver.gen.ConverterUtil"
+  *
+   de.kba.vers5_3.verkehr.mserver.gen.ConverterUtil.convertTo(?!Token)(?!Normalized)(?!Bool)(?!Base64)(?!String)(?!Date)(?!Positive)(?!NonNegative)(?!URI)(?!AnyURI)(?!Decimal)([^\(]+)\(content\)
+   ->  \1.Factory.fromString\(content, null\)
+
+*/
+
+  class ReplacerMult(filter: Option[Path => Boolean], val replaceStringPair: Option[(String, String)], val replacePairs: (scala.util.matching.Regex, Regex.Match => String)*) {
+
+    def replaceA(body: String): String = replaceStringPair.foldLeft(body) { (newbody, pair) => newbody.replaceAll(pair._1, pair._2) }
+
+    def replaceB(body: String): String = replacePairs.foldLeft(body) { (newbody, pair) => pair._1.replaceAllIn(newbody, pair._2) }
+
+    def bearbeite(f: Path) = {
+      val text = read(f)
+      println(text)
+      val ntext0 = replaceA(text)
+      println(ntext0)
+      val ntext1 = replaceB(ntext0)
+      println(ntext1)
+      write.over(f, "")
+      write.over(f, ntext1)
+    }
+
+    def apply(dirr: Path): Unit = {
+      def filter1(fp: Path) = {
+        val isf = os.isFile(fp)
+        if (filter.isDefined) (isf && filter.get(fp)) else isf
+      }
+
+      os.walk(dirr, p => ! filter1(p)).foreach { f =>
+        println("Bearbeite: " + f.toString())
+        bearbeite(f)
+      }
+      println("...fertig")
+    }
+
+    def apply(dirr: String): Unit = {
+      apply(Path(dirr))
+    }
+
+  }
+
+  object Regex2J extends ReplacerMult(None, None, ("&#x?([0-9a-fA-F]{1});".r, m => s"\\\\u000${m.group(1)}"), ("&#x?([0-9a-fA-F]{2});".r, m => s"\\\\u00${m.group(1)}"),
+    ("&#x?([0-9a-fA-F]{3});".r, m => s"\\\\u0${m.group(1)}"), ("&#x?([0-9a-fA-F]{4});".r, m => s"\\\\u${m.group(1)}")) {
+    override def apply(vers: String) = {
+      val dirr = Path(s"""C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/ws-gen/$vers""")
+      super.apply(dirr)
+    }
+  }
+
+  class Replacer(val replacee: scala.util.matching.Regex, val replaceTo: Regex.Match => String, filter: Option[Path => Boolean] = None) extends ReplacerMult(filter, None, (replacee, replaceTo))
+
+  object SetActionReplace extends Replacer("""(?i)setAction\("([^"]+)"\);""".r, _ =>
+    """setAction("");
+                _operationClient.getOptions().setProperty("disableSoapAction", "true");
+      """, Some(n => n.last.endsWith("ServiceStub.java") || n.last.endsWith("GOETEStub.java"))) {
+    //> val replacee: scala.util.matching.Regex =      A_TAG  : scala.util.matching.Regex = (?i)setAction\("([^"]+)"\);
+
+  }
+
+  object GtueQNameReplacer extends Replacer(
+    """new javax\.xml\.namespace\.QName\(([^\)]+)\)\w?\.\w?equals\(reader\.getName\(\)\)""".r,
+    m => s"""new de.xgta.$xgtaVers.verkehr.gen.QNameNs(${m.group(1)}).equalsNs(reader.getName())""", None) {
+  }
+
+  object GtueQNameReplacer1 extends ReplacerMult(
+    None,
+    Some(
+      """org.apache.axis2.databinding.utils.ConverterUtil""",
+      """de.xgta.$xgtaVers.verkehr.gen.ConverterUtil"""),
+    ("""new javax\.xml\.namespace\.QName\(([^\)]+)\)\w?\.\w?equals\(reader\.getName\(\)\)""".r,
+      m => s"""new de.xgta.$xgtaVers.verkehr.gen.QNameNs(${m.group(1)}).equalsNs(reader.getName())""")) {
+  }
+
+  object GtueQNameReplacer2 extends ReplacerMult(
+    None,
+    Some("""org.apache.axis2.databinding.utils.ConverterUtil""", """de.xgta.$xgtaVers.verkehr.gen.ConverterUtil""")) {
+  }
+
+  object MReplacer extends Replacer(
+    """\.get\w""".r,
+    m => s"""new de.xgta.$xgtaVers.verkehr.gen.QNameNs(${m.group(1)}).equalsNs(reader.getName())""", None) {
+  }
+
+  /*
+      Für mapdef scala ADBEan -> Mapstruct Jaxbri: replace  \.getTyp[^\(]*\(\) -> ;
+   */
+
+  object Class2PropPairs {
+
+    val apairs = """Feld\s*(\w[\w-\.]+)\b.*?private\s*\w+\s*([^;]+);""".r
+
+    def cmap(text: String): Map[String, String] =
+      apairs.findAllMatchIn(text).foldLeft(Map[String, String]()) { (pmap, m) =>
+        pmap + (m.group(2) -> m.group(1))
+      };
+
+   /* def classToXMLFile(clazz: Class[_]): String = { //hier eigentlich redundant mit classToXML; jedoch wird neben xmlString auch element gebraucht!
+      val el = XMLConverter.classToElement(clazz, false, true, "*", "id", "mandantId", "version", "fieldDescriptionMap",
+        "dtoFieldDescriptionMap", "nestedDtoDeletion")
+      tomaps(el)
+
+    }*/
+
+    val cm: Map[String, String] = Map[String, String](
+      "antragArt" -> "ANTRAG.KZ_ERSTERW",
+      "programmName" -> "GOETE-AUFTRAG.EXPROG",
+      "vorhandenesFsDokument" -> "PERSONENDATEN.VDOK",
+      "vorzeitigePruefung" -> "ANTRAG.KZ_VORZEITIG",
+      "verzichtVorlaeufigeFb" -> "PERSONENDATEN.VZVNF",
+      "stvaNummer" -> "STVALIST.STMIT",
+      "versionPruefschnittstelle" -> "GOETE-AUFTRAG.GOEVER",
+      "programmVersion" -> "GOETE-AUFTRAG.EXVER",
+      "anrede" -> "PERSONENDATEN.ANR",
+      "unterschriftSatzId" -> "PERSONENDATEN.SIGNATURE",
+      "namenszusaetze" -> "PERSONENDATEN.ZUSATZ",
+      "fahrschulName" -> "FAHRSCHULE.NAME",
+      "ausweisDokumentNummer" -> "PERSONENDATEN.ADOKNR",
+      "wohnort" -> "PERSONENDATEN.ORT",
+      "bemerkung2" -> "PERSONENDATEN.BEM2",
+      "berufskraftfahrer" -> "PERSONENDATEN.BERUFSKRAFTF",
+      "fahrschulNr" -> "FAHRSCHULE.TUEV_NR",
+      "auftragArt" -> "SATZ.AUFTR_ART",
+      "passbildSatzId" -> "PERSONENDATEN.PHOTOGRAPH",
+      "antragDatum" -> "ANTRAG.DANTR",
+      "verfahrenHersteller" -> "GOETE-AUFTRAG.EXHER",
+      "postleitzahl" -> "PERSONENDATEN.PLZ",
+      "bemerkung1" -> "PERSONENDATEN.BEM1",
+      "akademischerGrad" -> "PERSONENDATEN.DRGRD",
+      "nationalitaet" -> "PERSONENDATEN.NATIONALITAET",
+      "strasse" -> "PERSONENDATEN.STRASSE",
+      "allgemeineAuflagen" -> "FEKLASSE.FEABZ",
+      "ausweisDokument" -> "PERSONENDATEN.ADOK")
+
+    import scala.jdk.CollectionConverters._
+
+    val txt = cm.keys.foldLeft("")((ac, k) => ac + ",\n\"" + k + "\" -> \"" + cm(k) + "\"")
+
+    def tomaps(elem: Element): String = {
+      val chd = elem.getChildren.asScala.toList.filter { el => el.isInstanceOf[Element] }
+      chd match {
+        case cl if (0 == cl.size) => {
+          val name = elem.getName
+          val gnameOpt = Some(cm.getOrElse(name, name))
+          val gnameOpt1 = gnameOpt.map { n => n.split("""\.""") }
+          val gnameOpt2 = gnameOpt1.map(_.map(_.toLowerCase().capitalize).map("get" + _).mkString("""."""))
+          val gname = gnameOpt2.getOrElse("getClass")
+          //   s"""a.get${name.capitalize} -- b.${gname}"""
+          s"""a.${gname} -- b.get${name.capitalize}"""
+        }
+        case cl =>
+          val cmaps = cl.map { el => val ele = el.asInstanceOf[Element]; tomaps(ele) }.mkString("\n")
+          s"""(a.get${elem.getName.capitalize} -- b.getClass()) { (a, b) =>
+             |   ${cmaps}
+             |}""".stripMargin
+      }
+    }
+
+ /*   def apply(srcs: String) = {
+      //         val srcp = Path(srcs)
+      // map-code erzeugen :
+      //         val pmap = cmap(read(srcp))   pmap.mkString("\n")
+      val res = classToXMLFile(classOf[StrukturBezugsdatenFAER])
+      println(res)
+    }*/
+
+  }
+
+  object MergeExtensionMapper {
+    val apairs = """\s*if\s*\(\s*\"([^\"]+)\"[^\"]+\"([^\"]+)\"[^r]+return\s*([^;]+);""".r //
+
+    import scala.collection.mutable.Map
+
+    type KK = (String, String)
+    type MM = Map[KK, String]
+
+    def cmap(file: Path): MM = cmap(read(file))
+
+    def cmap(text: String): MM = apairs.findAllMatchIn(text).foldLeft(Map[KK, String]())((map, m) => {
+      map += (m.group(1), m.group(2)) -> m.group(3)
+    })
+
+    def mergeMaps(cmaps: Seq[MM]): MM = {
+      def appFirst(kk: KK): Option[String] = {
+        var these = cmaps
+        while (!these.isEmpty) {
+          if (these.head.contains(kk)) return Some(these.head(kk))
+          these = these.tail
+        }
+        None
+      }
+
+      val keySet = cmaps.foldLeft[Set[KK]](Set.empty)((s0, mm) => s0 ++ mm.keySet)
+      keySet.foldLeft[MM](Map[KK, String]())((map, kk) => {
+        map += kk -> appFirst(kk).getOrElse("FEHLER: kein Wert für " + kk)
+      })
+
+    }
+
+    def code4(p: ((String, String), String)) =
+      s"""      if ("${p._1._1}".equals(namespaceURI) && "${p._1._2}".equals(typeName)) {
+            return ${p._2};
+        }
+  """
+
+    def toCode(cmap: Map[(String, String), String]) = {
+      val buf = new StringBuffer
+      cmap.foreach { kv => buf.append(code4(kv))
+      }
+      buf.toString()
+    }
+
+    def mergeFiles(files: Path*) = {
+      val cmaps = files map cmap
+      cmaps foreach { m => println("\n\n\n/nMap:" + m.toString() + "\n\n\n\n") }
+      val map = mergeMaps(cmaps)
+      toCode(map)
+    }
+
+    def apply(targetfile: Path, genfile1: String, genfile2: String): Unit = {
+      apply(targetfile, Path(genfile1), Path(genfile2))
+    }
+
+    def apply(targetfile: Path, genfiles: Path*): Unit = {
+      val code = mergeFiles(genfiles: _*)
+      println("\n\n" + code)
+      write(targetfile, code)
+
+    }
+
+  }
+
+  /*
+* Map(
+ns8 -> Set(http://www.kba.de/hinweis, http://www.kba.de/zfzr/regina),   if\(namespace\.equals\(\"http://www.kba.de/zfzr/regina\"\)\)\{\s*return\s*"ns8";\s*\} ->
+if(namespace.equals("http://www.kba.de/zfzr/regina")){ return "ns80";} + QName MY_QNAME!!!!!
+-> kürzer: replace  in   C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/src/main/javahead/de/kba/vers4_3/zfzr/regina  "ns8" -> "ns80"
+ns9 -> Set(http://www.kba.de/evb/statuspruefauftrag, http://www.zivit.de/kraftstzoll/ws/rueckstandspruefung-enc/v1.4),
+if(namespace.equals("http://www.kba.de/evb/statuspruefauftrag")-> ns100
+in   C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/src/main/javahead/de/kba/vers4_3/evb/statuspruefauftrag "ns9" -> "ns90"
+ns10 -> Set(http://www.kba.de/evb/uebermittlung, http://www.kba.de/rueckstandspruefung),
+if(namespace.equals("http://www.kba.de/evb/uebermittlung")-> ns100
+in   C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/src/main/javahead/de/kba/vers4_3/evb/uebermittlung   "ns10" ->  -> "ns100"
+ns11 -> Set(http://www.kba.de/evb/vertragsende, http://www.zivit.de/kraftstzoll/ws/bankdatenvalidierung-enc/v1.4),
+if(namespace.equals("http://www.kba.de/evb/vertragsende")-> ns110
+in   C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/src/main/javahead/de/kba/vers4_3/evb/vertragsende "ns11" -> "ns110"
+ns12 -> Set(http://www.kba.de/evb/quittung, http://www.kba.de/kfzsteuer/bankdatenvalidierung))
+if(namespace.equals("http://www.kba.de/evb/quittung" -> ns120
+  C:/se/intj/Projekte/obj743vkhilf/ZfzrKonnektor/trunk/src/main/javahead/de/kba/vers4_3/evb/quittung "ns12" -> "ns120"
+
+ns8 -> Set(http://www.kba.de/hinweis, http://www.kba.de/zfzr/regina),
+ns9 -> Set(http://www.zivit.de/kraftstzoll/ws/rueckstandspruefung-enc/v1.4, http://www.kba.de/evb/statuspruefauftrag),
+ns10 -> Set(http://www.kba.de/evb/uebermittlung, http://www.kba.de/rueckstandspruefung),
+ns11 -> Set(http://www.kba.de/evb/vertragsende, http://www.zivit.de/kraftstzoll/ws/bankdatenvalidierung-enc/v1.4),
+ns12 -> Set(http://www.kba.de/evb/quittung, http://www.kba.de/kfzsteuer/bankdatenvalidierung))
+
+
+Jetzt:
+Set(
+(http://www.kba.de/elemente,ns1),
+(http://www.kba.de/typen,ns2),
+(http://www.kba.de/zfzr/update,ns3),
+(http://www.kba.de/mkmit,ns4),
+(http://www.kba.de/eVB/mitteilung,ns7),
+(http://www.kba.de/hinweis,ns8),
+(http://www.kba.de/zfzr/regina,ns80),
+(http://www.zivit.de/kraftstzoll/ws/rueckstandspruefung-enc/v1.4,ns9),
+(http://www.kba.de/evb/statuspruefauftrag,ns90),
+(http://www.kba.de/rueckstandspruefung,ns10),
+(http://www.kba.de/evb/uebermittlung,ns100),
+(http://www.zivit.de/kraftstzoll/ws/bankdatenvalidierung-enc/v1.4,ns11),
+(http://www.kba.de/evb/vertragsende,ns110)
+(http://www.kba.de/kfzsteuer/bankdatenvalidierung,ns12),
+(http://www.kba.de/evb/quittung,ns120),
+(http://www.evb-online.com/xmlschema,ns13),
+(http://www.kba.de/zfzr/auskunft,ns14),
+(http://www.xoev.de/schemata/xkfz/4_0,ns15),
+(http://xoev.de/schemata/code/1_0,ns16),
+(http://www.kba.de/zfzr/ikfz,ns17),
+(http://www.kba.de/evb/antwort,ns18),
+)
+if (namespace.equals("http://www.kba.de/elemente")) {
+           return "ns1";
+       }
+           if(namespace.equals("http://www.kba.de/zfzr/update")){
+               return "ns3";
+           }
+*/
+  object CollectNamespaces {
+    //      val genns = """if\(namespace\.equals\(\"([^\"]+)\"\)\)\{\s*return\s*\"([^\"]+)\";\s*\}""".r
+    //      für formattierten Code:
+    val genns = """if\s*\(namespace\.equals\(\"([^\"]+)\"\)\)\s*\{\s*return\s*\"([^\"]+)\";\s*\}""".r
+    //> genns  : scala.util.matching.Regex = if\(namespace\.equals\(\"([^\"]+)\"\)\)
+    //| \{\s*return\s*\"([^\"]+)\";\s*\}
+
+    type NP = (String, String)
+
+    import scala.collection.mutable.{Set => MSet}
+
+    def getNSet(src: Path) = {
+      val set = MSet[NP]()
+     os.walk( src , _.ext != "java").map(read).map { text => genns.findFirstMatchIn(text).map { m => (m.group(1), m.group(2)) }.foreach(set += _) }
+      set
+    }
+
+    def eval(set: MSet[NP]) = set.groupBy(p => p._2).filter(nsp => nsp._2.size > 1).map(nsp => (nsp._1, nsp._2.map(_._1)))
+
+    def apply(src: Path) = {
+      val nset = getNSet(src)
+      //nicht eindeutige
+      val doppelSet = eval(nset)
+      println("/nDoppelte\n")
+      println(doppelSet.mkString("\n"))
+      println("\n\n")
+
+      //Listen
+      val nsetr = nset.toSeq
+      //nach namespace
+      println("/nnach namespace\n")
+      println(nsetr.sortBy(np => np._1) mkString ("\n"))
+      println("\n\n")
+
+      //nach namespace-kürzel
+      val doppelKuerzel = doppelSet.keySet
+      println("/nnach namespace-kürzel\n")
+      println(nset.filter(nsp => doppelKuerzel.contains(nsp._2)).toSeq.map(np => (np._2, np._1)).sortBy(np => np._1) mkString ("\n"))
+    }
+
+  }
+
+  object RenameFiles {
+    def apply(srcdir: Path) = {
+      val toRename = os.walk( srcdir , _.ext != "java")
+      System.out.println(s"""toRename  : ammonite.ops.LsSeq =    ${toRename}""");
+      val res = toRename.foreach{
+        os. { case r"Zkr$x.java" => s"Coc$x.java" }
+      }
+      val ZkrRe: Regex = """Zkr(.*)\.java""".r
+      toRename
+//         .collect { case file@ZkrRe(id) => (file, file.parent / s"Coc${id}.java") }
+         .foreach { case (src, dst) => os.move(src, dst) }
+
+
+      System.out.println("""res:  =   ${res}""");
+    }
+
+  }
+
+  object TouchFiles {
+    def apply(srcdir: Path) = {
+      val toTouch = os.walk(  srcdir)
+      System.out.println(s"""toTouch  :  ${toTouch}""");
+      val res = toTouch .foreach { f => FileUtils.touch(f.toIO) }
+
+      System.out.println("""res:  =   ${res}""");
+    }
+
+  }
+
+  object IfNullSet { //202202 angewandt bei TuevNordPruefBeauftragungBo2GoeteAuftragMap.fillRequiredFields
+    val propS =
+      """kzErsterw
+        |kzVorzeitig
+        |dantr""".stripMargin
+
+    def apply = {
+      val props: stream.Stream[String] = propS.trim().lines
+      val codes = for (prop <- props) yield {
+        s"""if (target.get${prop.capitalize}() == null) {
+           |  target.set${prop.capitalize}("");
+           |}""".stripMargin
+      }
+
+      println(
+        s"""
+           |    @AfterMapping
+           |    public void fillRequired( § source, @MappingTarget §§ target){
+           |        if (target != null) {
+           |          ${codes.toArray.mkString("\n")}
+           |        }
+           |      }""".stripMargin)
+    }
+
+  }
+
+}

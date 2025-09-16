@@ -1,0 +1,19 @@
+{
+  "name": "Scala CLI Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "./.."
+  },
+  "workspaceFolder": "/scalacliTry5",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/scalacliTry5,type=bind",
+  // Einstellungen speziell für VS Code
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "scalameta.metals" // Scala-Support (Metals) automatisch installieren
+      ]
+    }
+  },
+  "postCreateCommand": "bash -lc \"scala-cli setup-ide .\"",
+  "remoteUser": "root"
+}
