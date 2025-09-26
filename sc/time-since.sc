@@ -58,7 +58,7 @@ val parser = OParser.sequence(
       .text("Example: Europe/Bucharest")
       .action((z, cfg) => cfg.copy(zoneId = z)),
 
-   help("help").text("Show this help message")
+   help("help").text("Show this help message!")
 )
 
 val defaults = Args(
